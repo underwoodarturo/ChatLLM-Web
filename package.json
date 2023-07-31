@@ -1,0 +1,59 @@
+{
+  "name": "chat-llm-web",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Chat with LLM totally in your browser with WebGPU, safely, privately, and with no server.",
+  "author": {
+    "name": "Ryan-yang125",
+    "email": "ruiyang0012@gmail.com",
+    "url": "https://github.com/Ryan-yang125"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "dev:local": "npm run dev && /Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary --enable-dawn-features=disable_robustness",
+    "format": "prettier --write .",
+    "export": "next export"
+  },
+  "dependencies": {
+    "@types/node": "18.16.0",
+    "@types/react": "18.0.38",
+    "@types/react-dom": "18.0.11",
+    "@vercel/analytics": "^1.0.1",
+    "autoprefixer": "10.4.14",
+    "daisyui": "^2.51.5",
+    "eslint": "8.39.0",
+    "eslint-config-next": "13.3.1",
+    "file-saver": "^2.0.5",
+    "jszip": "^3.10.1",
+    "next": "13.3.1",
+    "next-pwa": "^5.6.0",
+    "postcss": "8.4.23",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-markdown": "^8.0.7",
+    "react-syntax-highlighter": "^15.5.0",
+    "rehype-mathjax": "^4.0.2",
+    "remark-gfm": "^3.0.1",
+    "remark-math": "^5.1.1",
+    "tailwindcss": "3.3.1",
+    "typescript": "5.0.4",
+    "zustand": "^4.3.7"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.9",
+    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@types/file-saver": "^2.0.5",
+    "@types/react-syntax-highlighter": "^15.5.6",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.7",
+    "prettier-plugin-tailwindcss": "^0.2.7"
+  }
+}
