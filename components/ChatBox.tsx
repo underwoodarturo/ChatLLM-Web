@@ -76,8 +76,7 @@ export function ChatBox() {
               {chatStore.curConversation()?.title ?? ''}
             </div>
             <div className="text-base-content text-xs opacity-40 font-bold">
-              {chatStore.curConversation()?.messages?.length ?? 0} messages with
-              Vicuna
+              {chatStore.curConversation()?.messages?.length ?? 0} mensajes
             </div>
           </div>
 
@@ -149,7 +148,7 @@ export function ChatBox() {
           <div className="bg-base-100 flex items-center justify-center h-full z-30">
             <textarea
               className="textarea textarea-primary textarea-bordered textarea-sm w-[50%]"
-              placeholder="Ctrl + Enter to Send. Ask me anything"
+              placeholder="Ctrl + Enter para enviar. Pregunta cualquier cosa"
               value={userInput}
               onInput={(e) => onInput(e.currentTarget.value)}
               onFocus={() => setAutoScroll(true)}

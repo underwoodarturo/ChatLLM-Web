@@ -32,7 +32,7 @@ function createEmptyConversation(): ChatConversation {
     messages: [],
     createTime: curTime,
     updateTime: curTime,
-    title: 'New Conversation',
+    title: 'Nueva conversación',
   };
 }
 

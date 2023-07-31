@@ -18,18 +18,18 @@ function BottomSettings() {
         >
           <IconInfo />
         </button>
-        <div className="tooltip" data-tip="in developing...">
+        <div className="tooltip" data-tip="">
           <button className="btn btn-ghost btn-xs">
             <IconSetting />
           </button>
         </div>
-        <Link
+        {/* <Link
           href="https://github.com/Ryan-yang125/ChatLLM-Web"
           target="_blank"
           className="btn btn-ghost btn-xs"
         >
           <Image src="github-mark-white.svg" alt="" width={24} height={24} />
-        </Link>
+        </Link> */}
       </div>
       <button
         onClick={chatStore.newConversation}
@@ -55,7 +55,7 @@ export const ChatItem = (props: {
         <div className="flex flex-col h-full w-full">
           <div className="">{props.title}</div>
           <div className="flex justify-between h-full menu-title">
-            <div>Messages: {props.messageCount}</div>
+            <div>Mensajes: {props.messageCount}</div>
             <div className="ml-2">{props.timeText}</div>
           </div>
         </div>
@@ -79,11 +79,11 @@ export const Sidebar = () => {
           className="btn btn-ghost px-2"
         >
           <div className="font-title transition-all duration-200 md:text-2xl">
-            <div className="my-1 text-xl font-bold capitalize">ChatLLM-Web</div>
+            <div className="my-1 text-xl font-bold capitalize">Habi - ChatLLM</div>
           </div>
         </Link>
         <div className="text-base-content text-xs opacity-40 font-bold px-2">
-          AI assitant running in browser.
+          Asistente IA.
         </div>
       </div>
       <div className="overflow-auto flex-1 overflow-x-hidden ">
