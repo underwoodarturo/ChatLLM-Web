@@ -71,8 +71,8 @@ function Home() {
           </aside>
         </div>
       </div>
-      <InitModal />
-      <InstructionModal />
+      {/* <InitModal /> */}
+      {/* <InstructionModal /> */}
     </>
   );
 }
