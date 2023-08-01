@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 
 import Link from 'next/link';
 
@@ -52,46 +52,57 @@ export function InstructionModal() {
   ]);
 
   const chatStore = useChatStore();
+
+  const [error, setError] = useState('');
+
+  const user = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
+
+  const handleLogin = () => {
+    if (
+      user.current?.value === 'habi' &&
+      password.current?.value === 'Habi2023*'
+    ) {
+      chatStore.toggleInstuctionModal(false);
+    } else {
+      setError('Usuario o contraseña incorrecta');
+    }
+  };
   return (
     <>
       <div className={`modal ${instructionModalStatus ? 'modal-open' : ''}`}>
         <div className="modal-box w-11/12 max-w-5xl">
-          <h3 className="font-bold text-lg">Instructions</h3>
-          <p className="py-4">
-            <Link href="https://github.com/mlc-ai/web-llm" target="_blank">
-              WebLLM
-            </Link>
-            brings language model chats directly onto web browsers. Everything
-            runs inside the browser with no server support and accelerated with
-            WebGPU. For more details, check in{' '}
-            <a href="https://github.com/mlc-ai/web-llm" target="_blank">
-              WebLLM
-            </a>
-          </p>
-          <p className="">Here are some instructions about this app: </p>
-          <ul>
-            <li className="py-1">1. We use model Vicuna-7b.</li>
-            <li className="py-1">
-              2. Using browser supports WebGPU, you can try out Chrome 113 or
-              Chrome Canary. Chrome version ≤ 112 is not supported.
-            </li>
-            <li className="py-1">
-              3. First init requires download model, for vicuna-7b-v1.1, it
-              abouts 4GB. After downloading once, we can load modol from browser
-              cache for next time usage, it's faster.
-            </li>
-            <li className="py-1">
-              4. You will need a gpu with about 6.4G memory. If lower than that,
-              it's ok to run, but slow to wait for response.
-            </li>
-          </ul>
-          <div className="modal-action">
-            <label
-              htmlFor="init-modal"
-              className="btn"
-              onClick={() => chatStore.toggleInstuctionModal(false)}
-            >
-              Okay, Let's start!
+          <h3 className="font-bold text-lg">Instrucciones</h3>
+          <div className="py-4">
+            <h2 className=" font-bold">
+              Ingresa una pregunta, considerando lo siguiente:
+            </h2>
+            <ul>
+              <li>Se específico con lo que quieres saber.</li>
+              <li>El modelo aprenderá en base a las preguntas que realices.</li>
+              <li>
+                Considerá que esto es una Prueba de Concepto, no tomes las
+                respuestas como una verdad absoluta.
+              </li>
+            </ul>
+          </div>
+
+          <div className="flex flex-col justify-center align-middle gap-2">
+            <input
+              className=" textarea-bordered textarea-sm  text-center"
+              placeholder="Usuario"
+              ref={user}
+            ></input>
+            <input
+              className=" textarea-bordered textarea-sm  text-center"
+              placeholder="Contraseña"
+              type="password"
+              ref={password}
+            ></input>
+
+            <label className="py-3 text-rose-700">{error}</label>
+            <label className="btn" onClick={handleLogin}>
+              Iniciar sesión
             </label>
           </div>
         </div>

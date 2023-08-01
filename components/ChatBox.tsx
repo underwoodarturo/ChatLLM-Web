@@ -148,7 +148,7 @@ export function ChatBox() {
           <div className="bg-base-100 flex items-center justify-center h-full z-30">
             <textarea
               className="textarea textarea-primary textarea-bordered textarea-sm w-[50%]"
-              placeholder="Ctrl + Enter para enviar. Pregunta cualquier cosa"
+              placeholder="Ctrl + Enter para enviar"
               value={userInput}
               onInput={(e) => onInput(e.currentTarget.value)}
               onFocus={() => setAutoScroll(true)}

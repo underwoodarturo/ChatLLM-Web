@@ -72,7 +72,7 @@ function Home() {
         </div>
       </div>
       {/* <InitModal /> */}
-      {/* <InstructionModal /> */}
+      <InstructionModal /> 
     </>
   );
 }
