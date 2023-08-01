@@ -12,7 +12,7 @@ function BottomSettings() {
   return (
     <div className="flex items-center justify-between py-5 relative bottom-0 px-4">
       <div className="flex">
-        <button
+        {/* <button
           onClick={() => chatStore.toggleInstuctionModal(true)}
           className="btn btn-ghost btn-xs"
         >
@@ -22,8 +22,8 @@ function BottomSettings() {
           <button className="btn btn-ghost btn-xs">
             <IconSetting />
           </button>
-        </div>
-        {/* <Link
+        </div> 
+        <Link
           href="https://github.com/Ryan-yang125/ChatLLM-Web"
           target="_blank"
           className="btn btn-ghost btn-xs"
