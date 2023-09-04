@@ -117,9 +117,7 @@ export function ChatBox() {
               <div className="chat-image avatar">
                 <div className="w-10 rounded-full">
                   <Image
-                    src={
-                      item.type === 'assistant' ? '/vicuna.jpeg' : '/user.jpg'
-                    }
+                    src={item.type === 'assistant' ? '/habi.png' : '/user.jpg'}
                     alt=""
                     width={40}
                     height={40}
@@ -137,7 +135,9 @@ export function ChatBox() {
                 ) : item.type === 'assistant' ? (
                   <Markdown message={item} fontSize={14} defaultShow={true} />
                 ) : (
-                  <div>{item.content}</div>
+                  <div>
+                    {item.content}
+                  </div>
                 )}
               </div>
               <div className="chat-footer opacity-50">{item.statsText}</div>

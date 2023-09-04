@@ -1,4 +1,4 @@
-import { Message } from './chat';
+import { Message, ids } from './chat';
 
 type Prompts = [string, string][];
 type WorkerHistoryMsg = [string, string][];
@@ -57,4 +57,5 @@ export type ResFromWorkerMessageEventData = {
   msg: string;
   ifError?: boolean;
   ifFinish?: boolean;
+  ids?: Array<ids>
 };
