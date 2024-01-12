@@ -153,7 +153,8 @@ export const useChatStore = create<ChatStore>()(
           type: 'assistant',
           content: '',
           isLoading: true,
-          ids: []
+          ids: [],
+          results: [],
         });
         // const recentMsgs = get().getMemoryMsgs();
         // const toSendMsgs = recentMsgs.concat(userMessage);
@@ -229,6 +230,7 @@ export const useChatStore = create<ChatStore>()(
             const msgs = conversation.messages;
             msgs[msgs.length - 1].content = data.msg;
             msgs[msgs.length - 1].ids = data.ids;
+            msgs[msgs.length - 1].results = data.results;
             msgs[msgs.length - 1].isError = !!data.ifError;
             msgs[msgs.length - 1].isLoading = false;
             if (data.ifFinish) {

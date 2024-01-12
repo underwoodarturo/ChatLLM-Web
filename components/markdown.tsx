@@ -3,6 +3,8 @@ import ReactMarkdown, { Options } from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
+import { useGetFile } from '@/hooks/useSearch';
+
 import { generateRandomString, programmingLanguages } from '@/utils/codeblock';
 
 import { Message, ids } from '@/types/chat';
@@ -89,7 +91,7 @@ const CodeBlock: FC<Props> = memo(({ language, value }) => {
   );
 });
 
-const Doc: FC<ids> = ({ text, control, consecuencia}) => {
+const Doc: FC<ids> = ({ text, control, consecuencia }) => {
   return (
     <>
       <tr>
@@ -110,7 +112,19 @@ export function Markdown(
     defaultShow?: boolean;
   } & React.DOMAttributes<HTMLDivElement>,
 ) {
-  const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(true);
+  console.log(props.message);
+  const { mutate } = useGetFile();
+  const handleDownload = (filename: string) => {
+    mutate(
+      { filename },
+      {
+        onSuccess: (file) => {
+          window.open(file.url);
+        },
+      },
+    );
+  };
   return (
     <>
       <MemoizedReactMarkdown
@@ -177,7 +191,7 @@ export function Markdown(
       </small>
       {showMore && props.message.ids?.length && (
         <div>
-          <table>
+          <table className="table">
             <tr>
               <th>Texto</th>
               <th>Control</th>
@@ -185,6 +199,50 @@ export function Markdown(
             </tr>
             {props.message.ids?.map((c, index) => (
               <Doc key={index} {...c} />
+            ))}
+          </table>
+        </div>
+      )}
+
+      {showMore && props.message.results?.length && (
+        <div className="">
+          <table className="">
+            <tr>
+              <th>Id</th>
+              <th>Texto</th>
+              <th>Página</th>
+            </tr>
+            {props.message.results?.map((c, index) => (
+              <tr key={index}>
+                {c?.document?.derivedStructData?.fields?.extractive_answers?.listValue?.values?.map(
+                  (v, key) => (
+                    <>
+                      <td>[{key + 1}]</td>
+                      <td key={key} className="">
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: v.structValue.fields.content.stringValue,
+                          }}
+                        ></div>
+                      </td>
+                      <td>{v.structValue.fields.pageNumber.stringValue}</td>
+                      <td>
+                        <button
+                          className="btn btn-secondary"
+                          onClick={() =>
+                            handleDownload(
+                              c.document.derivedStructData.fields.link
+                                .stringValue,
+                            )
+                          }
+                        >
+                          Ver
+                        </button>
+                      </td>
+                    </>
+                  ),
+                )}
+              </tr>
             ))}
           </table>
         </div>

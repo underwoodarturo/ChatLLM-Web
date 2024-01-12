@@ -1,3 +1,5 @@
+import { IResults } from "./web-llm";
+
 export type ids = {
     "paisbase": string;
     "linea": string;
@@ -36,6 +38,7 @@ export type Message = {
   updateTime?: string;
   statsText?: string;
   ids?: Array<ids>
+  results?: Array<IResults>
 };
 
 export type ChatConversation = {

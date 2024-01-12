@@ -51,11 +51,103 @@ export type SendToWorkerMessageEventData = {
   ifNewConverstaion?: boolean;
 };
 
-export type ResFromWorkerMessageEventData = {
-  type: 'initing' | 'chatting' | 'stats';
-  action: 'append' | 'updateLast';
-  msg: string;
+enum IType {
+  'initing' = 'initing',
+  'chatting' = 'chatting',
+  'stats' = 'stats',
+}
+export class ResFromWorkerMessageEventData {
+  type!: IType;
+  action!: 'append' | 'updateLast';
+  msg!: string;
   ifError?: boolean;
   ifFinish?: boolean;
-  ids?: Array<ids>
-};
+  ids?: Array<ids>;
+  results?: Array<IResults>;
+}
+
+interface DocumentData {
+  name: string;
+  id: string;
+  schemaId: string;
+  derivedStructData: {
+    fields: {
+      title: {
+        stringValue: string;
+        kind: string;
+      };
+      link: {
+        stringValue: string;
+        kind: string;
+      };
+      extractive_answers: {
+        listValue: {
+          values: {
+            structValue: {
+              fields: {
+                content: {
+                  stringValue: string;
+                  kind: string;
+                };
+                pageNumber: {
+                  stringValue: string;
+                  kind: string;
+                };
+              };
+            };
+            kind: string;
+          }[];
+        };
+        kind: string;
+      };
+    };
+  };
+  parentDocumentId: string;
+  content: any; // Change 'any' to the appropriate type if you have specific content type information
+}
+
+export interface IResults {
+  modelScores: Record<string, any>; // Change 'any' to the appropriate type for modelScores values
+  id: string;
+  document: DocumentData;
+}
+
+
+
+interface SearchResult {
+  modelScores: Record<string, any>; // Change 'any' to the appropriate type for modelScores values
+  id: string;
+  document: Record<string, any>; // Change 'Record<string, any>' to the appropriate document structure
+}
+
+interface Summary {
+  summarySkippedReasons: any[]; // Change 'any' to the appropriate type for summarySkippedReasons values
+  summaryText: string;
+  safetyAttributes: {
+    categories: any[]; // Change 'any' to the appropriate type for categories values
+    scores: any[]; // Change 'any' to the appropriate type for scores values
+  };
+}
+
+interface GuidedSearchResult {
+  refinementAttributes: any[]; // Change 'any' to the appropriate type for refinementAttributes values
+  followUpQuestions: any[]; // Change 'any' to the appropriate type for followUpQuestions values
+}
+
+export interface CombinedInterface {
+  results: {
+    modelScores: Record<string, any>;
+    id: string;
+    document: Record<string, any>;
+  }[];
+  facets: any[];
+  appliedControls: any[];
+  totalSize: number;
+  attributionToken: string;
+  nextPageToken: string;
+  correctedQuery: string;
+  guidedSearchResult: GuidedSearchResult;
+  summary: Summary;
+  redirectUri: string;
+  queryExpansionInfo: null | Record<string, any>;
+}

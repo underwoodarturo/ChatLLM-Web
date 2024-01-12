@@ -4,6 +4,8 @@ import {
   SendToWorkerMessageEventData,
 } from '@/types/web-llm';
 
+import { postSearch } from './useSearch';
+
 class WebLLM {
   private worker?: Worker = undefined;
 
@@ -26,19 +28,23 @@ class WebLLM {
     data: SendToWorkerMessageEventData,
     workerMessageCb: (data: ResFromWorkerMessageEventData) => void,
   ): Promise<void> {
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_URL || 'http://127.0.0.1:8000',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      },
-    );
-    const json = await res.json();
-    workerMessageCb(json);
-    return json;
+    const search = await postSearch({ search: data.msg });
+    console.log(search.results?.[0].document.derivedStructData);
+    workerMessageCb(search);
+
+    // const res = await fetch(
+    //   process.env.NEXT_PUBLIC_URL || 'http://127.0.0.1:8000',
+    //   {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(data),
+    //   },
+    // );
+    // const json = await res.json();
+    // workerMessageCb(json);
+    // return json;
 
     // if (!this.worker) {
     //   this.worker = new Worker(
