@@ -1,15 +1,11 @@
 import { Authenticator } from '@aws-amplify/ui-react';
-import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { InitModal, InstructionModal } from '@/components/InitModal';
-
 import { useChatStore } from '@/store/chat';
-import { fetchAuthSession } from 'aws-amplify/auth';
 
 export function Loading() {
   return (
@@ -62,16 +58,13 @@ function Home() {
   }
 
   return (
-    <Authenticator>
-      {({ signOut, user }) =>
+    <Authenticator hideSignUp={true}>
+      {({ user }) =>
         user ? (
           <main>
             <div className="bg-base-100 drawer drawer-mobile">
               <input id="my-drawer" type="checkbox" className="drawer-toggle" />
               <div className="drawer-content p-2">
-                {/* <small>{user?.username}</small> */}
-                {/* <button onClick={signOut}>Sign out</button> */}
-                {/* <label htmlFor="my-drawer" className="btn btn-primary drawer-button">Open drawer</label> */}
                 <ChatBox />
               </div>
               <div className="drawer-side">
@@ -87,26 +80,6 @@ function Home() {
         )
       }
     </Authenticator>
-  );
-
-  return (
-    <>
-      <div className="bg-base-100 drawer drawer-mobile">
-        <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content p-2">
-          {/* <label htmlFor="my-drawer" className="btn btn-primary drawer-button">Open drawer</label> */}
-          <ChatBox />
-        </div>
-        <div className="drawer-side">
-          <label htmlFor="my-drawer" className="drawer-overlay"></label>
-          <aside className="bg-base-200 w-70">
-            <Sidebar />
-          </aside>
-        </div>
-      </div>
-      {/* <InitModal /> */}
-      <InstructionModal />
-    </>
   );
 }
 

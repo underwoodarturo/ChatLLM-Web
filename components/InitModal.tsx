@@ -58,16 +58,6 @@ export function InstructionModal() {
   const user = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
 
-  const handleLogin = () => {
-    if (
-      user.current?.value === 'habi' &&
-      password.current?.value === 'Habi2023*'
-    ) {
-      chatStore.toggleInstuctionModal(false);
-    } else {
-      setError('Usuario o contraseña incorrecta');
-    }
-  };
   return (
     <>
       <div className={`modal ${instructionModalStatus ? 'modal-open' : ''}`}>
@@ -101,9 +91,7 @@ export function InstructionModal() {
             ></input>
 
             <label className="py-3 text-rose-700">{error}</label>
-            <label className="btn" onClick={handleLogin}>
-              Iniciar sesión
-            </label>
+            <label className="btn">Iniciar sesión</label>
           </div>
         </div>
       </div>

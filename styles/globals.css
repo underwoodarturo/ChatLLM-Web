@@ -10,10 +10,17 @@
 table {
   border-collapse: collapse;
 }
-table td, table th {
+table td,
+table th {
   border: 1px solid #282a36;
   padding: 4px;
 }
 table tr {
   border: 1px solid #282a36;
+}
+div[data-amplify-authenticator] {
+  padding-top: 5rem;
+}
+.amplify-button{
+  color: black;
 }

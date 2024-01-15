@@ -1,17 +1,11 @@
+import { useAuthenticator } from '@aws-amplify/ui-react';
 import React, { useEffect, useRef, useState } from 'react';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
-import {
-  postFile,
-  useGetFile,
-  useGetFiles,
-  useImport,
-  usePostFile,
-} from '../hooks/useSearch';
+import { useGetFile, useGetFiles, usePostFile } from '../hooks/useSearch';
 
-import { IconAdd, IconDone, IconInfo, IconSetting } from './Icons';
+import { IconAdd, IconDone, IconInfo, IconLogout } from './Icons';
 
 import { useChatStore } from '@/store/chat';
 import { format } from 'date-fns';
@@ -21,26 +15,7 @@ function BottomSettings() {
   const chatStore = useChatStore();
   return (
     <div className="flex items-center justify-between py-5 relative bottom-0 px-4">
-      <div className="flex">
-        {/* <button
-          onClick={() => chatStore.toggleInstuctionModal(true)}
-          className="btn btn-ghost btn-xs"
-        >
-          <IconInfo />
-        </button>
-        <div className="tooltip" data-tip="">
-          <button className="btn btn-ghost btn-xs">
-            <IconSetting />
-          </button>
-        </div> 
-        <Link
-          href="https://github.com/Ryan-yang125/ChatLLM-Web"
-          target="_blank"
-          className="btn btn-ghost btn-xs"
-        >
-          <Image src="github-mark-white.svg" alt="" width={24} height={24} />
-        </Link> */}
-      </div>
+      <div className="flex"></div>
       <button
         onClick={chatStore.newConversation}
         className="btn btn-ghost btn-xs"
@@ -118,7 +93,7 @@ const Files = () => {
     }
   };
 
-  if (isLoading) {
+  if (isLoading || !files?.length) {
     return null;
   }
   return (
@@ -143,16 +118,12 @@ const Files = () => {
           <div>{files.length}</div>
         </div>
         {files?.map((file: any, key: number) => (
-          <div key={key} className="">
-            {/* <button }>
-            {file.name}
-            {file.processed ? 'si' : 'no'}
-          </button> */}
+          <div key={key}>
             <div
               role="alert"
               className="flex  items-center shadow-lg border border-secondary rounded-xl p-2"
             >
-              <div className='flex items-center p-2 gap-2 flex-grow'>
+              <div className="flex items-center p-2 gap-2 flex-grow">
                 {file.processed ? <IconDone /> : <IconInfo />}
                 <div className="flex flex-col gap-0 flex-grow">
                   <h3 className="font-bold">{file.originalname}</h3>
@@ -181,12 +152,6 @@ const Files = () => {
             </div>
           </div>
         ))}
-
-        {/* <div>
-          <button className="btn btn-secondary w-full" onClick={handleImport}>
-            Importar
-          </button>
-        </div> */}
       </div>
     </div>
   );
@@ -198,21 +163,26 @@ export const Sidebar = () => {
     state.curConversationIndex,
   ]);
   const chatStore = useChatStore();
+  const { signOut } = useAuthenticator();
   const [tab, setTab] = useState('docs');
+  const handleLogout = () => {
+    signOut();
+  };
   return (
     <div className="top-0 p-2 flex flex-col relative max-h-[100vh] h-[100vh]">
       <div className="bg-base-200 bg-opacity-90 backdrop-blur sticky top-0 items-center gap-2 px-4 py-2">
-        <Link
-          href="https://github.com/Ryan-yang125/ChatLLM-Web"
-          target="_blank"
-          className="btn btn-ghost px-2"
-        >
-          <div className="font-title transition-all duration-200 md:text-2xl">
-            <div className="my-1 text-xl font-bold capitalize">
-              Habi - ChatLLM
+        <div className="flex justify-between">
+          <Link href="#" target="_blank" className="btn btn-ghost px-2">
+            <div className="font-title transition-all duration-200 md:text-2xl">
+              <div className="my-1 text-xl font-bold capitalize">
+                Habi - ChatLLM
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+          <button className="btn btn-ghost" onClick={handleLogout}>
+            <IconLogout />
+          </button>
+        </div>
         <div className="text-base-content text-xs opacity-40 font-bold px-2">
           Asistente IA.
         </div>
