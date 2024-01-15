@@ -93,9 +93,10 @@ const Files = () => {
     }
   };
 
-  if (isLoading || !files?.length) {
+  if (isLoading) {
     return null;
   }
+
   return (
     <div>
       <div className="flex flex-col gap-2 pt-2">
@@ -115,7 +116,7 @@ const Files = () => {
           <div className="flex justify-between">
             <span>Archivos cargados</span>
           </div>
-          <div>{files.length}</div>
+          <div>{files?.length}</div>
         </div>
         {files?.map((file: any, key: number) => (
           <div key={key}>
